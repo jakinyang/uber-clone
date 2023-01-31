@@ -5,12 +5,14 @@ import { Provider } from 'react-redux';
 // Components
 import { store } from './store';
 import { HomeScreen } from './screens/HomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
+        <Text className="text-red-400">Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
       </View>
     </Provider>
