@@ -3,11 +3,9 @@ import React from 'react'
 
 export function HomeScreen() {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>HomeScreen</Text>
-      </View>
-    </SafeAreaView>
+    <View>
+      <Text className="text-red-400">HomeScreen</Text>
+    </View>
   )
 }
 
