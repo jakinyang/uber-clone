@@ -1,6 +1,10 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { GOOGLE_MAPS_API_KEY } from '@env';
+
+// Components
 import { NavOptions } from '../components/NavOptions';
 
 export function HomeScreen() {
@@ -24,10 +28,15 @@ export function HomeScreen() {
             uri: "https://links.papareact.com/gzs"
           }}
         />
+
+        <GooglePlacesAutocomplete 
+          placeholder='Where From?'
+          nearbyPlacesAPI='GooglePlacesSearch'
+          debounce={500}
+        />
+
         <NavOptions />
       </View>
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({})

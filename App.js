@@ -11,6 +11,9 @@ import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen'
 import { EatsScreen } from './screens/EatsScreen'
 
+// Env
+
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
