@@ -36,7 +36,7 @@ export function HomeScreen() {
           }}
         />
 
-        <GooglePlacesAutocomplete 
+        <GooglePlacesAutocomplete
           styles={{
             container: {
               flex: 0,
