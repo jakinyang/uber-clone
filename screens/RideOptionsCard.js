@@ -2,6 +2,8 @@ import { View, Text, SafeAreaView, TouchableOpacity, FlatList, Image } from 'rea
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@rneui/base';
+import { useSelector } from 'react-redux';
+import { selectorTravelTimeInformation } from '../slices/navSlice';
 
 const data = [
   {
@@ -24,9 +26,11 @@ const data = [
   },
 ]
 
+const SURGE_CHARGE = 1.5;
+
 export function RideOptionsCard() {
   const [selected, setSelected] = useState(null);
-
+  const travelTimeInformation = useSelector(selectorTravelTimeInformation)
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -35,7 +39,7 @@ export function RideOptionsCard() {
   }, [])
   return (
     <SafeAreaView
-      className="bg-white flex-grow"
+      className="bg-white"
     >
       <View>
         <TouchableOpacity
@@ -48,33 +52,55 @@ export function RideOptionsCard() {
           />
         </TouchableOpacity>
         <Text className="text-center py-5 text-xl">
-          Select a Ride
+          Select a Ride - {travelTimeInformation?.distance?.text}
         </Text>
       </View>
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            className="flex-row items-center justify-between px-10"
-            onPress={() => {setSelected(item)}}
-          >
-            <Image
-              style={{
-                width: 70,
-                height: 70,
-                resizeMode: "contian"
-              }}
-              source={{ uri: item.image }}
-            />
-            <View className="-ml-6">
-              <Text className="font-semibold text-lg">{item.title}</Text>
-              <Text>Travel time...</Text>
-            </View>
-            <Text className="text-xl">$99</Text>
-          </TouchableOpacity>
-        )}
+        renderItem={({ item }) => {
+          let style = "flex-row items-center justify-between px-10"
+          if (item.id === selected?.id) style += " bg-gray-200"
+          return (
+            <TouchableOpacity
+              className={style}
+              onPress={() => { setSelected(item) }}
+            >
+              <Image
+                style={{
+                  width: 70,
+                  height: 70,
+                  resizeMode: "contian"
+                }}
+                source={{ uri: item.image }}
+              />
+              <View className="-ml-6">
+                <Text className="font-semibold text-lg">{item.title}</Text>
+                <Text>{travelTimeInformation?.duration?.text} Travel Time</Text>
+              </View>
+              <Text className="text-xl">
+                {new Intl.NumberFormat('en-ca', {
+                  style: 'currency',
+                  currency: "CAD"
+                }).format(
+                  (travelTimeInformation?.duration?.value * SURGE_CHARGE * item.multiplier) / 100
+                )}
+              </Text>
+            </TouchableOpacity>
+          )
+        }}
       />
+      <View className="mt-auto border-t border-gray-200">
+        <TouchableOpacity
+          className="bg-black py-3 m-3"
+          style={!selected && { backgroundColor: "lightslategray" }}
+          disabled={!selected}
+        >
+          <Text
+            className="text-center text-white text-lg"
+          >Choose {selected?.title || "a Ride"}</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }
