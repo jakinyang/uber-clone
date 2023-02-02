@@ -10,6 +10,7 @@ import { setOrigin, setDestination } from '../slices/navSlice';
 
 // Components
 import { NavOptions } from '../components/NavOptions';
+import { NavFavourites } from '../components/NavFavourites';
 
 
 export function HomeScreen() {
@@ -66,6 +67,7 @@ export function HomeScreen() {
         />
 
         <NavOptions />
+        <NavFavourites />
       </View>
     </SafeAreaView>
   )
