@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 // Components
 import { setDestination } from '../slices/navSlice';
+import { NavFavourites } from '../components/NavFavourites';
 
 export function NavigateCard() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ export function NavigateCard() {
             debounce={300}
           />
         </View>
+        <NavFavourites />
       </View>
     </SafeAreaView>
   )
