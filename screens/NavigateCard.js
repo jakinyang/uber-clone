@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 // Components
 import { setDestination } from '../slices/navSlice';
 import { NavFavourites } from '../components/NavFavourites';
+import { Icon } from '@rneui/base';
 
 export function NavigateCard() {
   const dispatch = useDispatch();
@@ -63,6 +64,31 @@ export function NavigateCard() {
           />
         </View>
         <NavFavourites />
+      </View>
+      <View
+        className="flex-row bg-white justify-evenly py-2 mt-2 border-t border-gray-100"
+      >
+        <TouchableOpacity
+          className="flex-row bg-black w-24 px-4 py-3 rounded-full justify-between"
+          onPress={() => navigation.navigate('RideOptionsCard')}
+        >
+          <Icon
+            name='car'
+            type='font-awesome'
+            color="white"
+            size={16}
+          />
+          <Text className="text-white text-center">Rides</Text>
+        </TouchableOpacity>
+        <TouchableOpacity className="flex-row bg-gray-300 w-24 px-4 py-3 rounded-full justify-between">
+          <Icon
+            name='car'
+            type='font-awesome'
+            color="black"
+            size={16}
+          />
+          <Text className="text-black text-center">Eats</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
