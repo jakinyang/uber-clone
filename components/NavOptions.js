@@ -2,6 +2,8 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { Icon } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectorOrigin } from '../slices/navSlice';
 
 const data = [
   {
@@ -20,7 +22,7 @@ const data = [
 
 export function NavOptions() {
   const navigation = useNavigation();
-
+  const origin = useSelector(selectorOrigin);
 
 
   return (
@@ -32,13 +34,18 @@ export function NavOptions() {
         <TouchableOpacity
           className="p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40"
           onPress={() => navigation.navigate(item.screen)}
+          disabled={!origin}
         >
-          <View>
+          <View
+            className={!origin && "opacity-20"}
+          >
           <Image
             source={{uri: item.image}}
             className="h-24 w-24 object-contain"
           />
-          <Text>{item.title}</Text>
+          <Text
+            className="p-2 mt-2 mb-2"
+          >{item.title}</Text>
           <Icon 
             style={{
               padding: 4,
@@ -46,6 +53,7 @@ export function NavOptions() {
               borderRadius: "50",
               width: 34,
               marginTop: 4,
+              marginHorizontal: 4,
             }}
             color="white"
             name="arrowright"
