@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-export function EatsScreen() {
+export function RideOptionsCard() {
   const navigation = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -11,7 +11,7 @@ export function EatsScreen() {
   }, [])
   return (
     <View>
-      <Text>EatsScreen</Text>
+      <Text>RideOptionsCard</Text>
     </View>
   )
 }

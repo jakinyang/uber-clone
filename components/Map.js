@@ -1,10 +1,39 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import MapView, { Marker } from 'react-native-maps'
+import { useSelector } from 'react-redux'
+import { selectorOrigin } from '../slices/navSlice'
 
 export function Map() {
+
+  const origin = useSelector(selectorOrigin);
+
   return (
-    <View>
-      <Text>Map</Text>
-    </View>
+    <MapView
+      className="flex-1"
+      mapType="mutedStandard"
+      initialRegion={{
+        latitude: origin.location.lat,
+        longitude: origin.location.lng,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      }}
+    >
+      {
+        origin?.location && (
+          <Marker
+            coordinate={{
+              latitude: origin.location.lat,
+              longitude: origin.location.lng,
+            }}
+            title="Origin"
+            description={origin.description}
+            identifier="origin"
+          />
+
+        )
+
+      }
+    </MapView>
   )
 }
